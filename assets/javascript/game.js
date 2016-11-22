@@ -1,12 +1,8 @@
   
     // Vars
-    var words = ["CACHED", "MICROCHIP", "MEMORY", "HARDWARE"];
+    var words = ["MEXICO", "GERMANY", "ARGENTINA", "GUATEMALA", "DJIBOUTI", "UKRAINE"];
     var wins = 0;
-    // var guesses = 10;
-    // var lettersGuessed= [];
-    // var yourWord = "";
-    // var wordInProgress = "";
-    // var correctCounter = 0;
+
 
     function initializeRoundVars(){
       guesses = 10;
@@ -14,23 +10,18 @@
       yourWord = "";
       wordInProgress = "";
       correctCounter = 0;
-
     }
 
     function initializeBuildWord() {
-      console.log("Your word length:" + yourWord.length);
+      // console.log("Your word length:" + yourWord.length); debug
       for (var i=0; i < yourWord.length; i++){
-
         wordInProgress = wordInProgress + " _";
       } //end for
-
-
     } // end function
 
     function newWord() {
       if (words.length >=1){  //there are more words to guess
         initializeRoundVars(); 
-        document.querySelector("#wins").innerHTML = wins; 
         document.querySelector("#guesses").innerHTML = guesses;
         document.querySelector("#lettersGuessed").innerHTML = "";
       // randomly select a word from the word array
@@ -41,7 +32,8 @@
         console.log(yourWord);
       //format the display for the unguessed word  
         initializeBuildWord();
-
+      // display the unguessed word
+        document.querySelector("#wordInProgress").innerHTML = wordInProgress;
     }
     else {
       console.log("Game Over");
@@ -51,14 +43,14 @@
 
     } // end function
 
-
+        document.querySelector("#wins").innerHTML = wins; 
         newWord();
     
         
         document.onkeyup = function(event) {
           var userInput = String.fromCharCode(event.keyCode).toUpperCase();
           if (lettersGuessed.indexOf(userInput)  > -1){
-            console.log("You already guessed " + userInput);}
+            console.log("You already guessed " + userInput + ". Try again.");}
           else {  
             lettersGuessed.push(userInput);
             guesses = guesses - 1;
@@ -73,8 +65,8 @@
             }
             document.querySelector("#lettersGuessed").innerHTML = lettersGuessedReformat;
             document.querySelector("#guesses").innerHTML = guesses;
-            console.log("User Input: " + userInput);
-            console.log("Number guesses remaining: " + guesses);
+            // console.log("User Input: " + userInput);
+            // console.log("Number guesses remaining: " + guesses);
           
             for (var i = 0; i < yourWord.length; i++) {
               if(userInput === yourWord.charAt(i)) {
@@ -82,11 +74,18 @@
                 correctCounter = correctCounter + 1;
               } //end if
             } //end for
-            console.log(wordInProgress);
+            document.querySelector("#wordInProgress").innerHTML = wordInProgress;
+            // console.log(wordInProgress); debug
             if (correctCounter === yourWord.length) {
               console.log("You Won");
               wins = wins + 1;
-              //display number of wins here
+              document.querySelector("#wins").innerHTML = wins; 
+              // li.innerHTML = "<img src=\"" + imageReveal + "\">";
+              var imageReveal = "assets/images/germany.jpeg";
+
+              document.querySelector("#map").innerHTML="<img src=\"" + imageReveal + "\">";
+              console.log(yourWord);
+              document.querySelector("#tag").innerHTML=yourWord;
               newWord();
             }          
             else if (guesses === 0){

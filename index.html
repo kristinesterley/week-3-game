@@ -1,20 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Handman</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <meta charset="UTF-8"> 
+  <title>Hangman Game</title>
 </head>
 <body>
   <div id="app">
-    <h6>Find the word</h6>
-    <ul><li>Wins: <span id="wins"></span></li>
-      <li>Guesses: <span id="guesses"></span></li>
-      <li>Letters guessed: <span id="lettersGuessed"></span></li>
-    </ul>
-    <h6>Press any key to get started!</h6>
-  </div>
-  <script src="assets/javascript/game.js"></script>
-</body>
-  
+    <div class="container">
+    <div class="panel panel-primary">
+    <div class=" panel-heading"><h1>Hangman Game - Countries of the World Edition</h1></div>
+      <div class = "panel-body">
 
+
+        <div class="row">
+          <div class = "col-md-4" id="map">
+            <img src="assets/images/images.jpeg">
+          </div><!--end column -->
+
+          <div class="col-md-4">
+            <h3>Find the word:</h3>
+            <br>
+            <ul>
+              <li><h3><span id="wordInProgress"></span></h3></li>
+              <li><h4>Letters guessed: <span id="lettersGuessed"></span></h4></li>
+            </ul>
+          </div> <!-- end column -->
+          <div class="col-md-4">
+            <h3>Scoreboard</h3>
+              <ul>
+              <li><h4>Wins: <span id="wins"></span></h4></li>
+              <li><h4>Guesses: <span id="guesses"></span></h4></li>
+              </ul>
+          </div> <!--end column -->
+        </div><!-- end row-->
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <h3><span id="tag"> "Press any key to start!"</span></h3>
+          </div> <!--  end column -->
+          <div class="col-md-8">
+            <h3><span id="message"></span></h3>
+          </div>
+
+       </div><!--end row -->
+
+        </div> <!--panel body -->
+      </div> <!--panel -->
+      </div> <!--end container -->
+  </div> <!--end div id=app -->
+  <script src="assets/javascript/game2.js"></script>
+</body>
 </html>

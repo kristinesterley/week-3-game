@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Six+Caps');
+
+
+/*.panel-default {
+	background-color: black;
+}*/
+
+.panel-body {
+
+	background-image: url("../images/blackworld.jpeg");
+}
+h3 {
+	color:white;
+}
+h4 {
+	color: white;
+}
