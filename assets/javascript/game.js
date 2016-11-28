@@ -84,7 +84,6 @@
               var imageReveal = "assets/images/germany.jpeg";
 
               document.querySelector("#map").innerHTML="<img src=\"" + imageReveal + "\">";
-              console.log(yourWord);
               document.querySelector("#tag").innerHTML=yourWord;
               newWord();
             }          

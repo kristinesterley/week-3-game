@@ -1,7 +1,17 @@
   
-    // Vars
+    // Vars and Functions
+    function displayWinnerInfo(countryName, flagImage, numWins) {
 
-  
+              document.querySelector("#tag").innerHTML=countryName;
+              document.querySelector("#map").innerHTML=flagImage;
+              document.querySelector("#wins").innerHTML = numWins; 
+    }
+    function updateRoundDisplay(userPrompt, guessesLeft, lettersDone, wordPart ){
+                document.querySelector("#message").innerHTML = userPrompt;     
+                document.querySelector("#guesses").innerHTML = guessesLeft;
+                document.querySelector("#lettersGuessed").innerHTML = lettersDone;
+                document.querySelector("#wordInProgress").innerHTML = wordPart;
+    }
 
     var game = {
             words:["MEXICO", "GERMANY", "ARGENTINA", "GUATEMALA", "DJIBOUTI", "UKRAINE"],
@@ -20,6 +30,7 @@
 
               if (this.words.length >=1){  //there are more words to guess
 
+              //initialize the variables for this round
                 this.lettersGuessed= [];
                 this.yourWord = "";
                 this.yourGuesses=0;
@@ -38,31 +49,21 @@
               // once word is chosen, remove word from words array, num guesses from guesses array and image path from wordImage array
                 this.words.splice(yourWordIndex, 1);
                 this.numGuesses.splice(yourWordIndex,1);
-                this.wordImage.splice(yourWordIndex,1);
-                console.log(this.yourWord);             
+                this.wordImage.splice(yourWordIndex,1);           
 
-              //format the display for the unguessed word  
-        
+              //format the display for the unguessed word      
                 for (var i=0; i < this.yourWord.length; i++){
                   this.wordInProgress = this.wordInProgress + " _";
                 } 
+            // clear the display from the last round and display new word in progress
+                updateRoundDisplay("Press any key to start!", this.yourGuesses,"",this.wordInProgress);
 
-
-
-                document.querySelector("#guesses").innerHTML = this.yourGuesses;
-                document.querySelector("#lettersGuessed").innerHTML = "";
-            // display the unguessed word
-                document.querySelector("#wordInProgress").innerHTML = this.wordInProgress;
               }
-              else {
-                console.log("Game Over");
-                document.querySelector("#wordInProgress").innerHTML = "";
-                document.querySelector("#lettersGuessed").innerHTML = "";
-                document.querySelector("#message").innerHTML = "Game Over. Refresh to play again.";
+              else {      //no more words to guess so game over - clear display and end the keystroke code
+                updateRoundDisplay("Game Over. Refresh to play again.","","","");
                 document.onkeyup = function(event) {}
-      //exit();
               }
-            } //end function
+            } //end function beginRound
 
     }; //end of the object definition
 
@@ -77,13 +78,17 @@
     
         
         document.onkeyup = function(event) {
+          // get user key stroke - letter guessed
           var userInput = String.fromCharCode(event.keyCode).toUpperCase();
+          // if already guessed, let user know,  else process the new guessed letter
           if (game.lettersGuessed.indexOf(userInput)  > -1){
-            console.log("You already guessed " + userInput + ". Try again.");}
-          else {  
+            document.querySelector("#message").innerHTML = "You already guessed " + userInput + ". Try again."; 
+            }
+          else {  //this is a new letter guessed
+            // put letter into the letter guessed arrary and decrease guesses by one
             game.lettersGuessed.push(userInput);
             game.yourGuesses = game.yourGuesses - 1;
-
+            // format the letters guessed display variable
             var lettersGuessedReformat;
             for (j=0;j<game.lettersGuessed.length;j++){
               if (j ===0){
@@ -93,32 +98,26 @@
                 lettersGuessedReformat = lettersGuessedReformat + ", " + game.lettersGuessed[j];
                }  
             }
-            document.querySelector("#lettersGuessed").innerHTML = lettersGuessedReformat;
-            document.querySelector("#guesses").innerHTML = game.yourGuesses;
-            // console.log("User Input: " + userInput);
-            // console.log("Number guesses remaining: " + guesses);
-          
+            // format the word in progress display variable and keep track of number of letters correctly guessed         
             for (var i = 0; i < game.yourWord.length; i++) {
               if(userInput === game.yourWord.charAt(i)) {
                 game.wordInProgress = game.wordInProgress.slice(0,2*i+1) + userInput + game.wordInProgress.slice(2*i + 2, 2*game.yourWord.length);
                 game.correctCounter = game.correctCounter + 1;
               } //end if
             } //end for
-            document.querySelector("#wordInProgress").innerHTML = game.wordInProgress;
-            // console.log(wordInProgress); debug
+            //display the updated letters guessed and the updated number of guesses and updated word in progress
+            updateRoundDisplay("",game.yourGuesses,lettersGuessedReformat,game.wordInProgress);
+
+            // if user has guessed all of the letters in the word, then increment the wins, display the winning word and flag image and begin another round, else if user has run out of guesses, increment losses and begin another round. if neither of those, code will then process the next key stroke which is the next letter guess
             if (game.correctCounter === game.yourWord.length) {
-              console.log("You Won");
               game.wins = game.wins + 1;
-              document.querySelector("#wins").innerHTML = game.wins; 
-
-              var imageReveal = "assets/images/germany.jpeg";
-
-              document.querySelector("#map").innerHTML="<img src=\"" + game.yourImage + "\">";
-              document.querySelector("#tag").innerHTML=game.yourWord;
+              var imgString = "<img src=\"" + game.yourImage + "\">"
+              displayWinnerInfo(game.yourWord,imgString,game.wins);
+              // document.getElementbyId("myAudio").play();
+              // ="<source src=\" + germany.ogg + \" + type=\"audio/ogg\">";
               game.beginRound();
             }          
             else if (game.yourGuesses === 0){
-              console.log("You Lost")
               game.beginRound();
             }
           }//end if 

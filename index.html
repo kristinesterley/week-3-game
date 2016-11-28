@@ -9,6 +9,9 @@
   <title>Hangman Game</title>
 </head>
 <body>
+  <audio id="myAudio">
+    <source src="assets/images/germany.ogg" type="audio/ogg">
+  </audio>  
   <div id="app">
     <div class="container">
     <div class="panel panel-primary">
@@ -38,8 +41,8 @@
           </div> <!--end column -->
         </div><!-- end row-->
         <div class="row">
-          <div class="col-md-4 text-center">
-            <h3><span id="tag"> "Press any key to start!"</span></h3>
+          <div class="col-md-4">
+            <h3><span id="tag"></span></h3>
           </div> <!--  end column -->
           <div class="col-md-8">
             <h3><span id="message"></span></h3>
