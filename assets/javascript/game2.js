@@ -52,6 +52,7 @@
             yourAnthem:"",
             lettersGuessed:[],
             wins:0,
+            losses:0,
             wordInProgress:"",
             correctCounter:0,
 
@@ -68,6 +69,8 @@
                 this.yourAnthem="";
                 this.wordInProgress = "";
                 this.correctCounter = 0;
+    
+    
                 
               // randomly select a word from the word array
                 this.yourWord = this.words[Math.floor(Math.random() * this.words.length)];
@@ -101,6 +104,7 @@
 
       //begin code execution
         document.querySelector("#wins").innerHTML = game.wins; 
+        document.querySelector("#losses").innerHTML = game.losses;
         game.beginRound();
     
         
@@ -147,6 +151,8 @@
               game.beginRound();
             }          
             else if (game.yourGuesses === 0){
+              game.losses++;
+              document.querySelector("#losses").innerHTML = game.losses;
               game.beginRound();
             }
           }//end if 
