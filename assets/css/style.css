@@ -10,3 +10,7 @@ h3 {
 h4 {
 	color: white;
 }
+
+.spaced {
+	letter-spacing: 10px;
+}

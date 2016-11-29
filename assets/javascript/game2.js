@@ -88,7 +88,7 @@
 
               //format the display for the unguessed word      
                 for (var i=0; i < this.yourWord.length; i++){
-                  this.wordInProgress = this.wordInProgress + " _";
+                  this.wordInProgress = this.wordInProgress + "_";
                 } 
             // clear the display from the last round and display new word in progress
                 updateRoundDisplay("Press any key to start!", this.yourGuesses,"",this.wordInProgress);
@@ -119,20 +119,14 @@
             // put letter into the letter guessed arrary and decrease guesses by one
             game.lettersGuessed.push(userInput);
             game.yourGuesses = game.yourGuesses - 1;
-            // format the letters guessed display variable
             var lettersGuessedReformat;
-            for (j=0;j<game.lettersGuessed.length;j++){
-              if (j ===0){
-                lettersGuessedReformat = game.lettersGuessed[j];
-               }               
-               else {
-                lettersGuessedReformat = lettersGuessedReformat + ", " + game.lettersGuessed[j];
-               }  
-            }
+            lettersGuessedReformat = game.lettersGuessed.toString();
+            lettersGuessedReformat=lettersGuessedReformat.replace(/,/g,"");
+
             // format the word in progress display variable and keep track of number of letters correctly guessed         
             for (var i = 0; i < game.yourWord.length; i++) {
               if(userInput === game.yourWord.charAt(i)) {
-                game.wordInProgress = game.wordInProgress.slice(0,2*i+1) + userInput + game.wordInProgress.slice(2*i + 2, 2*game.yourWord.length);
+                game.wordInProgress = game.wordInProgress.slice(0,i) + userInput + game.wordInProgress.slice(i + 1, game.yourWord.length);
                 game.correctCounter = game.correctCounter + 1;
               } //end if
             } //end for
